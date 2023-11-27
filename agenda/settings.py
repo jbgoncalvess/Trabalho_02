@@ -42,8 +42,7 @@ INSTALLED_APPS = [
 
 INSTALLED_APPS += ['stdimage',]
 
-INSTALLED_APPS += ['home', 'aluno', 'professor', 'disciplina', 'curso', 'universidade', 'produto',
-                   'cliente', 'funcionario', 'servico', 'atendimento', 'produtoservico']
+INSTALLED_APPS += ['home', 'aluno', 'professor', 'disciplina', 'curso',]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

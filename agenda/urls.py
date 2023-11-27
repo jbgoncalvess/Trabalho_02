@@ -31,10 +31,4 @@ urlpatterns = [
     path('', include('professor.urls')),
     path('', include('disciplina.urls')),
     path('', include('curso.urls')),
-    # path('', include('cliente.urls')),
-    # path('', include('atendimento.urls')),
-    # path('', include('funcionario.urls')),
-    # path('', include('produto.urls')),
-    # path('', include('produtoservico.urls')),
-    # path('', include('servico.urls')),
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
