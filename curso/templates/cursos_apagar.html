@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="columns is-mobile">
+            <div class="column is-half is-offset-one-quarter">
+                <h3 class="title is-size-3">Dados do Curso</h3>
+                <p class="p-2 mt-2"><strong>Nome: </strong> {{ object.nome }} </p>
+                <!-- Adapte conforme os campos do seu modelo de Curso -->
+                <!-- Certifique-se de substituir 'Nome' e 'Matricula' pelos nomes corretos dos campos do seu modelo -->
+                <!-- Se você tiver outros campos, inclua-os da mesma forma -->
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p>Confirma a exclusão do curso "{{ object }}"?</p>
+                    <br/>
+                    <button class="button is-link is-primary" type="submit">Apagar</button>
+                    <button class="button is-danger is-pulled-right" type="reset">
+                        <a href="{% url 'cursos' %}">Cancelar</a>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

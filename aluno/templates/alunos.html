@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <section class="section has-background-link-light">
+        <div class="container">
+            <form action="" method="GET">
+                <div class="field is-grouped is-flex is-align-items-center is-flex-wrap-wrap">
+                    <label class="label p-2 mt-2">Nome do aluno: </label>
+                    <div class="control is-expanded">
+                        <input class="input" type="text" name="buscar" value="{{ request.GET.buscar }}" placeholder="Digite o nome do aluno">
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-link">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {% if object_list %}
+                <div style="text-align: center;"><h1 class="subtitle is-size-4">Alunos Cadastrados</h1></div>
+                <div class="table">
+                    <table class="table is-table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th class="has-text-centered">Nome</th>
+                                <th class="has-text-centered">Matricula</th>
+                                <th class="has-text-centered">Cpf</th>
+                                <th class="has-text-centered" style="width: 100px;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for aluno in object_list %}
+                                <tr>
+                                    <td> <a href="#" data-toogle="modal" class="modal-target" data-bulma-modal="modal{{aluno.id}}" id="modal{{aluno.id}}">{{ aluno.nome }}</a></td>
+                                    <td> {{ aluno.matricula }} </td>
+                                    <td> {{ aluno.cpf }} </td>
+                                    <td class="has-text-centered is-flex is-flex-wrap-nowrap is-justify-content-center">
+                                        <a href="{% url 'alunos_editar' aluno.pk %}">
+                                            <span class="icon">
+                                                <i class="fas fa-edit"></i>
+                                            </span>
+                                        </a>
+
+                                        <a href="{% url 'alunos_apagar' aluno.pk %}">
+                                            <span class="icon">
+                                                <i class="far fa-trash-alt"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                    <div class="modal" id="modal{{ cliente.id }}">
+                                        <div class="modal-background"></div>
+                                        <div class="modal-card">
+                                            <header class="modal-card.head">
+                                                <p class="modal-card-title">Aluno: {{ aluno.nome }}</p>
+                                                <button class="delete" aria-label="close" data-bulma-modal="close" id="btnClose"></button>
+                                            </header>
+                                            <footer class="modal-card-foot">
+                                                <p>Matricula: {{ aluno.matricula }}</p>
+                                            </footer>
+                                        </div>
+                                    </div>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <h2>Não existem alunos cadastrados!</h2>
+            {% endif %}
+        </div>
+        <div class="mt-3" style="text-align: center">
+            <span class="step-links">
+                {% if object_list.has_previous %}
+                    <a href="?page={{ object_list.previous_page_number }}">Anterior</a>
+                {% endif %}
+
+                <span class="current">
+                    <strong>{{ object_list.number }}</strong> de {{ object_list.paginator.num_pages }}
+                </span>
+
+                {% if object_list.has_next %}
+                    <a href="?page={{ object_list.next_page_number }}">Próxima</a>
+                {% endif %}
+            </span>
+        </div>
+    </section>
+{% endblock %}

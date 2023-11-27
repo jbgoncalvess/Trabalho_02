@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="section">
+    <div class="container">
+      <div class="columns is-mobile">
+      <div class="column is-half is-offset-one-quarter">
+          <h3 class="title is-size-3">Dados da Disciplina</h3>
+          <p class="p-2 mt-2"><strong>Nome: </strong> {{ object.nome_da_disciplina }} </p>
+          <p class="p-2 mt-2"><strong>Código: </strong> {{ object.codigo_da_disciplina }}</p>
+          <p class="p-2 mt-2"><strong>Professor: </strong> {{ object.professor }}</p>
+          <!-- Adicione aqui a lógica para exibir os alunos da disciplina -->
+          <p class="p-2 mt-2"><strong>Alunos: </strong> {% for aluno in object.alunos.all %}{{ aluno.nome }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p> Confirma a exclusão da disciplina "{{ object }}"? </p>
+            <br/>
+            <button class="button is-link is-primary" type="submit">Apagar</button>
+            <button class="button is-danger is-pulled-right" type="reset">
+              <a href="{% url 'disciplinas' %}">Cancelar</a>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+</section>
+{% endblock %}

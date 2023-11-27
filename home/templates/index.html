@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+        <section class="hero is-link is-spaced has-background-info-dark">
+            <div class="hero-body">
+                <div class="container has-text-centered">
+                    <h1 class="title is-size-1 has-text-black-bis has-text-weight-bold">SGUF</h1>
+                    <p class="title is-size-1 has-text-black-bis">Sistema de Gerenciamento de Universidades Federais</p>
+                </div>
+            </div>
+        </section>
+        {% block registros %}
+            {% include "registros.html" %}
+        {% endblock %}
+
+{% endblock %}

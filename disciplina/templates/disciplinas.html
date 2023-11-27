@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <section class="section has-background-link-light">
+        <div class="container">
+            <form action="" method="GET">
+                <div class="field is-grouped is-flex is-align-items-center is-flex-wrap-wrap">
+                    <label class="label p-2 mt-2">Nome da disciplina: </label>
+                    <div class="control is-expanded">
+                        <input class="input" type="text" name="buscar" value="{{ request.GET.buscar }}" placeholder="Digite o nome da disciplina">
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-link">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {% if object_list %}
+                <div style="text-align: center;"><h1 class="subtitle is-size-4">Disciplinas Cadastradas</h1></div>
+                <div class="table">
+                    <table class="table is-table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th class="has-text-centered">Nome</th>
+                                <th class="has-text-centered">Codigo</th>
+                                <th class="has-text-centered">Alunos</th>
+                                <th class="has-text-centered">Professor</th>
+                                <th class="has-text-centered" style="width: 100px;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for disciplina in object_list %}
+                                <tr>
+                                    <td> {{ disciplina.nome }} </td>
+                                    <td> {{ disciplina.codigo }} </td>
+                                    <td>
+                                        {% for aluno in disciplina.alunos.all %}
+                                            {{ aluno.nome }}{% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td> {{ disciplina.professor }} </td>
+                                    <div class="modal" id="modal{{ disciplina.id }}">
+                                        <div class="modal-background"></div>
+                                        <div class="modal-card">
+                                            <header class="modal-card.head">
+                                                <p class="modal-card-title">Disciplina: {{ disciplina.nome }}</p>
+                                                <button class="delete" aria-label="close" data-bulma-modal="close" id="btnClose"></button>
+                                            </header>
+                                        </div>
+                                    </div>
+
+
+                                    <td class="has-text-centered is-flex is-flex-wrap-nowrap is-justify-content-center">
+                                        <a href="{% url 'disciplinas_editar' disciplina.pk %}">
+                                            <span class="icon">
+                                                <i class="fas fa-edit"></i>
+                                            </span>
+                                        </a>
+                                        <a href="{% url 'disciplinas_apagar' disciplina.pk %}">
+                                            <span class="icon">
+                                                <i class="far fa-trash-alt"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+
+
+
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <h2>Não existem disciplinas cadastradas!</h2>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
